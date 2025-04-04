@@ -2,8 +2,8 @@ def a(f: str):
     b=''
     c='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     for i in f:
-        for j in c:
-            if i==c:
+
+            if i in c:
                 b+=i
                 break
     return b
