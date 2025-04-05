@@ -5,7 +5,7 @@ def a(n):
         p=0
         for j in c:
             p+=int(j)
-            if p==7:
+        if p==7:
                 b+=c+" "
     return b
 n=int(input())
