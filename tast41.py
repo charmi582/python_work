@@ -1,7 +1,7 @@
 def a(n):
     count={}
     word=n.split()
-    for i in word.lower():
+    for i in word:
         if i in count:
             count[i]+=1
         else:
