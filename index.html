@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GPS 資料傳送器</title>
+  <title>GPS & Speed 碳排記錄</title>
 </head>
 <body>
-  <h2>📱 傳送定位與速度資料</h2>
-  <form id="gpsForm">
-    <label>平均速度 (km/h):</label><br>
-    <input type="number" step="0.1" id="speed" required><br><br>
+  <h2>🛰️ 傳送 GPS 和速度</h2>
+  <form id="gpsForm" method="POST" action="http://127.0.0.1:5000/upload">
+    <label>平均速度 (km/h)：</label><br>
+    <input type="number" step="0.1" id="speed" name="speed" required><br><br>
 
-    <input type="hidden" id="lat">
-    <input type="hidden" id="lng">
+    <input type="hidden" id="lat" name="lat">
+    <input type="hidden" id="lng" name="lng">
 
-    <button type="submit">送出資料</button>
+    <button type="submit">送出</button>
   </form>
 
   <script>
@@ -20,27 +20,6 @@
     navigator.geolocation.getCurrentPosition(function(position) {
       document.getElementById("lat").value = position.coords.latitude;
       document.getElementById("lng").value = position.coords.longitude;
-    });
-
-    // 當表單送出
-    document.getElementById("gpsForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const data = {
-        speed: parseFloat(document.getElementById("speed").value),
-        lat: parseFloat(document.getElementById("lat").value),
-        lng: parseFloat(document.getElementById("lng").value)
-      };
-
-      fetch("http://localhost:5000/api/gps", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      }).then(res => res.json())
-        .then(res => alert(`預測：${res.prediction}，碳排：${res.co2.toFixed(2)} kg CO₂`))
-        .catch(err => alert("錯誤：" + err));
     });
   </script>
 </body>
