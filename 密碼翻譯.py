@@ -6,6 +6,6 @@ for i in range(n):
       if w.isalpha(): 
          w = w.upper()
          count[w]=count.get(w, 0)+1
-f=sorted(dict,key=lambda x:(-dict[x],x))
+f=sorted(count,key=lambda x:(-count[x],x))
 for i in f:
-  print(f"{i} {dict[i]}")
+  print(f"{i} {count[i]}")
