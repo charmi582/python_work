@@ -8,10 +8,10 @@ def a(n):
         count[last][i]=count[last].get(i, 0)+1
     z={}
     for j in count:
-        dict_count=count[j]
-        sorted_count=sorted(dict_count.items(), key=lambda x:x[1], reverse=True)
-        z[j]=sorted_count
-        
+        dic=count[j]
+        min_count=min(dic.values())
+        result=[k for k, v in dic.items() if v==min_count]
+        z[j]=result
     return z
 n=input()
 print(a(n))
