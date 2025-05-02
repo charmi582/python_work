@@ -1,42 +1,55 @@
-# python work cryptanalysis
 ## 題目
-密碼翻譯（cryptanalysis）是指把某個人寫的密文（cryptographic writing）加以分解。這個程序通常會對密文訊息做統計分析。你的任務就是寫一個程式來對密文作簡單的分析。
+一位來自墨西哥蒙特瑞技術研究學院(ITESM Campus Monterrey)的學生想發表一種新的數值加密演算法。
+演算法步驟如下：
+
+1. 讀入一個整數N，N為欲加密的數字：N = 265
+2. 將N當作十進位的數值：X1 = 265(decimal)
+3. 把X1由十進制轉為二進制：X1 = 100001001(binary)
+4. 計算二進制的X1有幾個1：b1 = 3
+5. 把N當作十六進位數值：X2 = 265(hexadecimal)
+6. 把X2由十六進制轉為二進制：X2 = 1001100101(binary)
+7. 計算二進制的X2有幾個1：b2 = 5
+8. 最後的編碼為N xor (b1*b2)：265 xor (3*5) = 262
+
+這位學生並未通過這次的計算機組識考試，所以他請求校方在ACM的試題上出一題計算共有幾個位元1的題目，好讓他能順利發表他的數值加密演算法。
+你必須寫一個程式能讀入一個整數，然後輸出該整數的b1, b2值。
+
+輸入說明：
+第一行包含一個數字T (0 < T ≤ 1000)，代表有幾組測資。
+接下來的T行，每行包含一個數字N (decimal)(0 < N ≤ 9999)，N代表學生要加密的數字。
+
+輸出說明：
+對於每組測資，輸出數字b1和b2，b1和b2請用空白分隔。
 
 範例輸入 #1
 3
-This is a test.
-Count me 1 2 3 4 5.
-Wow!!!! Is this question easy?
+265
+111
+1234
 
 範例輸出 #1
-S 7
-T 6
-I 5
-E 4
-O 3
-A 2
-H 2
-N 2
-U 2
-W 2
-C 1
-M 1
-Q 1
-Y 1
-## 程式碼
+3 5
+6 3
+5 5
+# 程式碼:
 ```python=
-n=int(input())
-count={}
-for i in range(n):
-   s=input().strip()
-   for w in s:
-      if w.isalpha(): 
-         w = w.upper()
-         count[w]=count.get(w, 0)+1
-f=sorted(dict,key=lambda x:(-dict[x],x))
-for i in f:
-  print(f"{i} {dict[i]}")
+a = int(input())
+for i in range(a):
+    b = int(input())
+    c = 0 
+    d = 0
+    k = b 
+    result = ''
+    while b > 0:
+        result = str(b % 2) + result
+        b //= 2
+    for j in result:
+        if j == '1':
+            c += 1
+    print(c, end=' ')
+
 ```
-## 講解
-一開始我有點看不太懂這個程式是怎麼去翻譯這個密碼，所以有上網找cpe的題目。
-我看了網路上面的完整題目之後，發現這是基本的字典應用，那首先我先輸入一個整數n，然後建立一個字典count，建立一個for迴圈
+# 解說
+先輸入一個數字a郎判斷共要寫多少行
+跑一個for迴圈裏面input你要判斷的數字
+while 迴圈裡面進行二制運算
