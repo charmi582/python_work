@@ -6,4 +6,3 @@ for i in range(2,a-1):
         break
 else:
         print(f"{a} 是質數")
-        
