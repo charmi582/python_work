@@ -58,7 +58,7 @@ while True:
             r_wrist.y < r_shoulder.y and
             r_elbow.y < r_shoulder.y and
             r_wrist.y < r_elbow.y and
-            dy > 0.02
+            dy > 0.03
         ):
             hold_counter += 1
         else:
