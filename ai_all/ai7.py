@@ -14,7 +14,7 @@ y_pred=model.predict(x_test)
 acc=accuracy_score(y_pred, y_test)
 print("準確率:", acc)
 
-now_data=[[1000, 1]]
+now_data=[[90, 1]]
 result=model.predict(now_data)[0]
 
 if result==1:

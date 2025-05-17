@@ -1,0 +1,13 @@
+train: C:\Users\wdche\venv\YOLO11-test\train\images
+val: C:\Users\wdche\venv\YOLO11-test\valid\images
+test: C:\Users\wdche\venv\YOLO11-test\test\images
+
+nc: 4
+names: ['Metal Cans', 'PET bottle', 'Paper bowl', 'Plastic']
+
+roboflow:
+  workspace: 0524test
+  project: yolo11-ifbws
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/0524test/yolo11-ifbws/dataset/1

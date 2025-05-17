@@ -15,3 +15,4 @@ print("準確率:", acc)
 
 now_data=[[0, 5]]
 print("今天下雨、煮飯意願5分，會叫外送嗎？預測為：", model.predict(now_data)[0])
+        
