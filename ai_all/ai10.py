@@ -10,7 +10,9 @@ model.fit(x, y)
 
 for label in np.unique(y):
     plt.scatter(x[y==label][:, 0], x[y==label][:, 1],
-                label=f"是否有玩手機={label}", s=100)
+                label=f"是否熬夜={label}", s=100)
+    
+    
 x_min, x_max = x[:, 0].min()-0.5, x[:, 0].max()+0.5
 y_min, y_max = x[:, 1].min()-0.5, x[:, 1].max()+0.5
 
@@ -25,9 +27,8 @@ Z = model.predict(grid).reshape(xx.shape)
 
 plt.contourf(xx, yy, Z, alpha=0.2, cmap=plt.cm.RdYlBu)
 
-plt.xlabel("睡眠時數")
-plt.ylabel("工作時數")
-plt.title("AI 分類邏輯視覺化：完成運動與否")
-plt.legend()
-plt.grid(True)
+label=f"是否熬夜={label}"     # 原本寫「是否有玩手機」
+plt.xlabel("壓力程度")        # 原本寫「睡眠時數」
+plt.ylabel("手機使用時間")    # 原本寫「工作時數」
+plt.title("AI 分類視覺化：是否熬夜")  # 原本寫「完成運動與否」
 plt.show()
