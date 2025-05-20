@@ -27,8 +27,8 @@ Z = model.predict(grid).reshape(xx.shape)
 
 plt.contourf(xx, yy, Z, alpha=0.2, cmap=plt.cm.RdYlBu)
 
-label=f"是否熬夜={label}"     # 原本寫「是否有玩手機」
-plt.xlabel("壓力程度")        # 原本寫「睡眠時數」
-plt.ylabel("手機使用時間")    # 原本寫「工作時數」
-plt.title("AI 分類視覺化：是否熬夜")  # 原本寫「完成運動與否」
+label=f"是否熬夜={label}"    
+plt.xlabel("壓力程度")       
+plt.ylabel("手機使用時間")    
+plt.title("AI 分類視覺化：是否熬夜")  
 plt.show()
