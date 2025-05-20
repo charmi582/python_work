@@ -1,13 +1,19 @@
-n=int(input())
-count={}
-for i in range(n):
-    a=input()
-    for j in a:
-        first=j[0]
-    if a not in count:
-        count[first]={}
-    count[first][a]=count[first].get(i, 0)+1
-    max_count=max(count[first].items())
-    result=[k for k ,v in count[first].items() if v == max_count]
-print( result)
-        
+n = int(input())
+from collections import defaultdict
+
+group = defaultdict(lambda: defaultdict(int))
+
+for _ in range(n):
+    word = input()
+    first = word[0]
+    group[first][word] += 1
+
+# 對每個開頭字母進行處理
+for ch in sorted(group.keys()):
+    words = group[ch]
+    max_count = max(words.values())
+    
+    # 找到所有符合最大次數的字串
+    candidates = [w for w in words if words[w] == max_count]
+    result = min(candidates)  # 挑字典順序最小的
+    print(f"{ch} {result}")
