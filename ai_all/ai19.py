@@ -19,7 +19,9 @@ model.fit(x_train, y_train)
 
 y_pred=model.predict(x_test)
 mse=mean_squared_error(y_test, y_pred)
+r2=r2_score(y_test, y_pred)
 print("mse準確率:", mse)
+print("r2", r2)
 
 a=float(input("請輸入您的房屋面積"))
 b=float(input("請輸入您想要的房間數:"))
