@@ -44,7 +44,7 @@ while True:
     # 畫面處理
     img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     blurred = cv2.GaussianBlur(frame, (11, 11), 0)
-    hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
+    gray = cv2.cvtColor(blurred, cv2.COLOR_BGR2GRAY)
 
     # === 出手偵測 ===
     results = pose.process(img_rgb)
@@ -77,19 +77,17 @@ while True:
             shooting = True
             speak_flag["shoot"] = True
 
-    # === 命中偵測（橘球進籃） ===
-    lower_orange = np.array([5, 100, 100])
-    upper_orange = np.array([15, 255, 255])
-    mask = cv2.inRange(hsv, lower_orange, upper_orange)
-    mask = cv2.erode(mask, None, iterations=2)
-    mask = cv2.dilate(mask, None, iterations=2)
-    contours, _ = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # === 使用 Canny 邊緣檢測來識別藍球 ===
+    edges = cv2.Canny(gray, 50, 150)
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     if contours:
         c = max(contours, key=cv2.contourArea)
         ((x, y), radius) = cv2.minEnclosingCircle(c)
-        if radius > 10:
-            cv2.circle(frame, (int(x), int(y)), int(radius), (0, 140, 255), 2)
+        if radius > 10:  # 篩選過小的輪廓
+            cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 0), 2)  # 顯示偵測到的物體
+
+            # 檢查是否命中虛擬籃框
             if hoop_x1 < x < hoop_x2 and hoop_y1 < y < hoop_y2:
                 score += 1
                 speak_flag["score"] = True
@@ -123,3 +121,4 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
