@@ -1,30 +1,30 @@
 import os
-os.environ["OPENBLAS_NUM_THREADS"] = "1"  # 限制 NumPy 執行緒，避免錯誤
+os.environ["OPENBLAS_NUM_THREADS"] = "1"  
 
 import cv2
 import numpy as np
 import mediapipe as mp
 
-# 初始化 MediaPipe
+
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 mp_draw = mp.solutions.drawing_utils
 
-# 開啟攝影機
+
 cap = cv2.VideoCapture(0)
 
-# 初始化統計變數
+
 shoot_count = 0
 score = 0
 shooting = False
 hold_counter = 0
 prev_wrist_y = None
 
-# 攝影機畫面尺寸
+
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# 虛擬籃框區域（畫面中央上方）
+
 hoop_x1 = frame_width // 2 - 75
 hoop_y1 = 50
 hoop_x2 = frame_width // 2 + 75
@@ -35,12 +35,12 @@ while True:
     if not ret:
         break
 
-    # 影像處理
+    
     img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     blurred = cv2.GaussianBlur(frame, (11, 11), 0)
     hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
-    # ===== 投籃出手偵測（MediaPipe） =====
+   
     results = pose.process(img_rgb)
     if results.pose_landmarks:
         mp_draw.draw_landmarks(frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
@@ -69,7 +69,7 @@ while True:
             shoot_count += 1
             shooting = True
 
-    # ===== 命中偵測（橘球追蹤） =====
+
     lower_orange = np.array([5, 100, 100])
     upper_orange = np.array([15, 255, 255])
     mask = cv2.inRange(hsv, lower_orange, upper_orange)
@@ -85,7 +85,6 @@ while True:
             if hoop_x1 < x < hoop_x2 and hoop_y1 < y < hoop_y2:
                 score += 1
 
-    # ===== 顯示統計資料與圖形介面 =====
     accuracy = (score / shoot_count) * 100 if shoot_count > 0 else 0.0
 
     cv2.rectangle(frame, (hoop_x1, hoop_y1), (hoop_x2, hoop_y2), (255, 0, 0), 2)
