@@ -1,6 +1,6 @@
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.utils import to_categorical
 from keras.layers import Dense
 from sklearn.metrics import classification_report
@@ -27,6 +27,8 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 model.fit(x_train, y_train, epochs=50, batch_size=8, verbose=1)
 
 loss, acc=model.evaluate(x_test, y_test)
+
+model.save("frist_test.h5")
 y_perd=model.predict(x_test)
 y_perdz=np.argmax(y_perd, axis=1)
 y_testz=np.argmax(y_test, axis=1)
