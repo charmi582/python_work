@@ -50,7 +50,7 @@ model = Sequential([
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=50, batch_size=5, verbose=1)
+model.fit(x_train, y_train, epochs=50, batch_size=100, verbose=1)
 
 loss, acc = model.evaluate(x_test, y_test)
 print(f"準確率: {acc:.4f}")
