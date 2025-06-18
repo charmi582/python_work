@@ -39,7 +39,8 @@ model = Sequential([
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
 early_stop = EarlyStopping(monitor='val_accuracy', patience=5, restore_best_weights=True)
 
-model.fit(x_train, y_train, epochs=50, batch_size=100, validation_data=(x_val, y_val), callbacks=[early_stop])
+model.fit(x_train, y_train, epochs=50, batch_size=100, validation_data=(x_val, y_val), 
+          callbacks=[early_stop])
 
 loss, acc = model.evaluate(x_test, y_test)
 print("Test Accuracy:", acc)
