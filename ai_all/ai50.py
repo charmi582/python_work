@@ -56,7 +56,7 @@ reduce=ReduceLROnPlateau(monitor='val_accuracy', patience=3, factor=0.5, verbose
 
 early_stop=EarlyStopping(monitor='val_accuracy', patience=5, restore_best_weights=True)
 
-model.fit(x_train, y_train, epochs=10, verbose=1, callbacks=[early_stop, reduce], 
+model.fit(x_train, y_train, epochs=20, verbose=1,batch_size=100 ,callbacks=[early_stop, reduce], 
           validation_data=(x_val, y_val))
 
 loss, acc=model.evaluate(x_test, y_test)
