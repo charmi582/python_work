@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GPS & Speed 碳排記錄</title>
+</head>
+<body>
+  <h2>🛰️ 傳送 GPS 和速度</h2>
+  <form id="gpsForm" method="POST" action="http://127.0.0.1:5000/upload">
+    <label>平均速度 (km/h)：</label><br>
+    <input type="number" step="0.1" id="speed" name="speed" required><br><br>
+
+    <input type="hidden" id="lat" name="lat">
+    <input type="hidden" id="lng" name="lng">
+
+    <button type="submit">送出</button>
+  </form>
+
+  <script>
+    // 自動抓 GPS
+    navigator.geolocation.getCurrentPosition(function(position) {
+      document.getElementById("lat").value = position.coords.latitude;
+      document.getElementById("lng").value = position.coords.longitude;
+    });
+  </script>
+</body>
+</html>
